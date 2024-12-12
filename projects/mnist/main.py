@@ -4,6 +4,7 @@ import torch.optim as optim
 from utils import setup_device, download_dataset
 from torch.utils.data import DataLoader
 from models.simple import SimpleNN
+import datetime
 
 """
 TODO:
@@ -66,7 +67,11 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss()
     # Optimizer: Stochastic Gradient Descent (SGD) with learning rate of 0.01
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+    start_time = datetime.datetime.now()
     # Train the model for 5 epochs
     train(model, device, train_loader, criterion, optimizer, epochs=5)
     # Test the model after training
     test(model, device, test_loader)
+    end_time = datetime.datetime.now()
+    elapsed_time = end_time - start_time
+    print(f"Time elapsed: {elapsed_time}")
