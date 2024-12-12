@@ -3,21 +3,16 @@ import torch.nn as nn
 import torch.optim as optim
 from utils import setup_device, download_dataset
 from torch.utils.data import DataLoader
+from models.simple import SimpleNN
 
-# define the structure of neural network
-class SimpleNN(nn.Module):
-    def __init__(self):
-        super(SimpleNN, self).__init__()
-        self.fc1 = nn.Linear(28 * 28, 128)  # Fully connected layer 1
-        self.fc2 = nn.Linear(128, 64)       # Fully connected layer 2
-        self.fc3 = nn.Linear(64, 10)        # Output layer for 10 classes (digits 0-9)
+"""
+TODO:
 
-    def forward(self, x):
-        x = x.view(-1, 28 * 28)  # Flatten the image
-        x = torch.relu(self.fc1(x))
-        x = torch.relu(self.fc2(x))
-        x = self.fc3(x)           # No activation for the final output (applies softmax in loss)
-        return x
+1. find out the data type and values of train_dataset, test_dataset
+2. find out the dimensions of: (data, target)
+3. find the meaning of .to() function in data.to(device)
+4. find out the data type, dimensions, and values of output = model(data)
+"""
 
 # train function
 def train(model, device, train_loader, criterion, optimizer, epochs=5) -> None:
@@ -72,6 +67,6 @@ if __name__ == "__main__":
     # Optimizer: Stochastic Gradient Descent (SGD) with learning rate of 0.01
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
     # Train the model for 5 epochs
-    train(model, device, train_loader, criterion, optimizer, epochs=20)
+    train(model, device, train_loader, criterion, optimizer, epochs=5)
     # Test the model after training
     test(model, device, test_loader)
