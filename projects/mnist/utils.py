@@ -4,8 +4,8 @@ from torchvision import datasets, transforms
 from typing import Tuple
 
 transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))  # Normalize to [-1, 1]
+    transforms.ToTensor(), # convert the values to [0, 1]
+    transforms.Normalize((0.5,), (0.5,))  # Normalize to [-1, 1], new_val = (old_val - mean) / std
 ])
 
 def setup_device() -> torch.device:

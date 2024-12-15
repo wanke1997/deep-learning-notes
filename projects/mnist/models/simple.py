@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 from utils import setup_device, download_dataset
 from torch.utils.data import DataLoader
+from typing import cast
 
 # define the structure of neural network
 class SimpleNN(nn.Module):
@@ -13,6 +14,9 @@ class SimpleNN(nn.Module):
         self.fc3 = nn.Linear(64, 10)        # Output layer for 10 classes (digits 0-9)
 
     def forward(self, x):
+        x = cast(torch.Tensor, x)
+        # the size -1 is inferred from other dimensions, it means the number of samples
+        # in a batch. The second dimension means the size of 1-D dimension of a graph
         x = x.view(-1, 28 * 28)  # Flatten the image
         x = torch.relu(self.fc1(x))
         x = torch.relu(self.fc2(x))

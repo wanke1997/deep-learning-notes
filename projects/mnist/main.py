@@ -5,6 +5,8 @@ from utils import setup_device, download_dataset
 from torch.utils.data import DataLoader
 from models.simple import SimpleNN
 import datetime
+from torch import Tensor as Tensor
+from typing import cast
 
 """
 TODO:
@@ -22,6 +24,8 @@ def train(model, device, train_loader, criterion, optimizer, epochs=5) -> None:
         running_loss = 0.0
         for batch_idx, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
+            data = cast(Tensor, data)
+            target = cast(Tensor, target)
             # Zero the gradients
             optimizer.zero_grad()
             # Forward pass: Compute the model output
