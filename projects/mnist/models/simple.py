@@ -13,8 +13,8 @@ class SimpleNN(nn.Module):
         self.fc2 = nn.Linear(128, 64)       # Fully connected layer 2
         self.fc3 = nn.Linear(64, 10)        # Output layer for 10 classes (digits 0-9)
 
-    def forward(self, x):
-        x = cast(torch.Tensor, x)
+    # there is no restrctions about the input x when overwriting
+    def forward(self, x: torch.Tensor):
         # the size -1 is inferred from other dimensions, it means the number of samples
         # in a batch. The second dimension means the size of 1-D dimension of a graph
         x = x.view(-1, 28 * 28)  # Flatten the image
